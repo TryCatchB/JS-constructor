@@ -1,13 +1,27 @@
 {
-  "devDependencies": {
-    "jest": "^29.5.0",
-    "jest-environment-jsdom": "^29.5.0",
-    "jsdom": "^22.0.0"
-  },
+  "name": "js-constructor",
+  "version": "1.0.0",
+  "description": "javascript pure application",
+  "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "serve": "parcel ./src/index.html -p 4200 --open",
+    "build": "parcel build .src/index.html"
   },
-  "dependencies": {
-    "text-encoding-utf-8": "^1.0.2"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TryCatchB/JS-constructor.git"
+  },
+  "keywords": [
+    "js",
+    "javascript"
+  ],
+  "author": "Zhenek <pozdrakovzena@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TryCatchB/JS-constructor/issues"
+  },
+  "homepage": "https://github.com/TryCatchB/JS-constructor#readme",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5"
   }
 }
