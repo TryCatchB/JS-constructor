@@ -1,36 +1,35 @@
 import image from "./assets/image.png";
 import {
-  TitleBlock,
   TextBlock,
-  ColumnsBlock,
+  TitleBlock,
   ImageBlock,
+  ColumnsBlock,
 } from "./classes/blocks";
 
 export const model = [
-  new TitleBlock("Конструктор сайтов на чистом JavaScript.", {
+  new TitleBlock("Конструктор сайтов на чистом JS.", {
     tag: "h2",
     styles: {
       "text-align": "center",
       color: "#fff",
-      padding: "1.5rem",
       background: "linear-gradient(to right, #ff0099, #493240)",
+      padding: "1.5rem",
     },
   }),
 
-  new TextBlock("Вперед в веб-разработку вместе!", {
+  new TextBlock("Давайте двигаться вперед к веб-разработке вместе!", {
     styles: {
-      "font-size": "1.25rem",
+      "font-size": "1.5625rem",
       "text-align": "center",
-      color: "#FFFFFFCC",
+      color: "#fff",
       background: "linear-gradient(to left, #f2994a, #f2c94c)",
-      padding: "0.625rem 0",
+      padding: "1.5rem",
     },
   }),
 
   new ColumnsBlock(["HTML", "CSS", "JS"], {
     styles: {
       "font-size": "1.125rem",
-      "font-weight": "600",
       "text-align": "center",
       color: "#fff",
       background: "linear-gradient(to bottom, #8e2de2, #4a00e0)",
@@ -41,12 +40,12 @@ export const model = [
     styles: {
       display: "flex",
       "justify-content": "center",
-      padding: "0.9375rem 0",
+      padding: "2rem 0",
     },
     imageStyles: {
-      width: "31.25rem",
+      width: "500px",
       height: "auto",
     },
-    alt: "Это картина",
+    alt: "Picture",
   }),
 ];

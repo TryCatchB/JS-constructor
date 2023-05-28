@@ -1,5 +1,5 @@
-import { Sidebar } from "./sidebar";
 import { Site } from "./site";
+import { Sidebar } from "./sidebar";
 
 export class App {
   constructor(model) {
@@ -12,7 +12,7 @@ export class App {
     site.render(this.model);
 
     const updateCallBack = (newBlock) => {
-      model.push(newBlock);
+      this.model.push(newBlock);
       site.render(this.model);
     };
 

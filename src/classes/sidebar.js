@@ -4,7 +4,9 @@ import { TextBlock, TitleBlock } from "./blocks";
 export class Sidebar {
   constructor(selector, updateCallBack) {
     this.$el = document.querySelector(selector);
+
     this.update = updateCallBack;
+
     this.init();
   }
 
@@ -20,14 +22,14 @@ export class Sidebar {
   add(event) {
     event.preventDefault();
 
-    const type = event.target.name;
+    const type = event.target;
     const value = event.target.value.value;
     const styles = event.target.styles.value;
 
-    let newBlock =
+    const newBlock =
       type === "text"
-        ? (newBlock = new TextBlock(value, { styles }))
-        : (newBlock = new TitleBlock(value, { styles }));
+        ? new TextBlock(value, { styles })
+        : new TitleBlock(value, { styles });
 
     this.update(newBlock);
 

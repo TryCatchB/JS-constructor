@@ -1,4 +1,4 @@
-import { row, col, css } from "../utils";
+import { col, css, row } from "../utils";
 
 class Block {
   constructor(value, options) {
@@ -7,7 +7,7 @@ class Block {
   }
 
   toHTML() {
-    throw new Error("Метод toHTML должен быть реализован.");
+    throw new Error("Method toHTML must be realised");
   }
 }
 
@@ -28,7 +28,13 @@ export class TextBlock extends Block {
   }
 
   toHTML() {
-    return row(col(`<p>${this.value}</p>`), css(this.options.styles));
+    const { styles } = this.options;
+    return row(
+      col(`<p>
+            ${this.value}
+        </p>`),
+      css(styles)
+    );
   }
 }
 
@@ -38,8 +44,9 @@ export class ColumnsBlock extends Block {
   }
 
   toHTML() {
-    const html = this.value.map(col).join("");
-    return row(html, css(this.options.styles));
+    const { styles } = this.options;
+    const HTML = this.value.map(col).join("");
+    return row(HTML, css(styles));
   }
 }
 
@@ -49,9 +56,9 @@ export class ImageBlock extends Block {
   }
 
   toHTML() {
-    const { imageStyles: is, alt = "", styles } = this.options;
+    const { styles, imageStyles: is, alt = "" } = this.options;
     return row(
-      `<img style="${css(is)}" src="${this.value}" alt="${alt}"> `,
+      `<img src="${this.value}" alt="${alt}" style="${css(is)}"/>`,
       css(styles)
     );
   }

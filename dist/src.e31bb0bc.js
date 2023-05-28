@@ -117,7 +117,9 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"utils.js":[function(require,module,exports) {
+})({"assets/image.png":[function(require,module,exports) {
+module.exports = "/image.90ac9039.png";
+},{}],"utils.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -132,8 +134,7 @@ function row(content) {
   return "<div class=\"row\" style=\"".concat(styles, "\">").concat(content, "</div>");
 }
 function col(content) {
-  var styles = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
-  return "<div class=\"col-sm\" styles=\"".concat(styles, "\">").concat(content, "</div>");
+  return "<div class=\"col-sm\">".concat(content, "</div>");
 }
 function css() {
   var styles = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -146,7 +147,7 @@ function css() {
   return Object.keys(styles).map(toString).join(";");
 }
 function block(type) {
-  return "\n    <form name=\"".concat(type, "\">\n      <h5>").concat(type, "</h5>\n      <div class=\"form-group\">\n         <input class=\"form-control fron-control-sm\" name=\"value\" placeholder=\"value\">\n      </div>\n      <div class=\"form-group\">\n         <input class=\"form-control fron-control-sm\" name=\"styles\" placeholder=\"styles\">\n      </div>\n      <button type=\"submit\" class=\"btn btn-primary btn-sm\">\u0414\u043E\u0431\u0430\u0432\u043B\u044F\u0442\u044C</button>\n    </form>\n    ");
+  return "\n  <form name=\"".concat(type, "\">\n     <h5>").concat(type, "</h5>\n     <div style=\"margin-bottom: 1rem\" class=\"form-group\">\n       <input class=\"form-control form-control-sm\" name=\"value\" placeholder=\"value\">\n     </div>\n     <div style=\"margin-bottom: 1rem\" class=\"form-group\">\n       <input class=\"form-control form-control-sm\" name=\"styles\" placeholder=\"styles\">\n     </div>\n     <button type=\"submit\" class=\"btn btn-primary btn-sm\">\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C</button>\n  </form>\n  <hr />\n  ");
 }
 },{}],"classes/blocks.js":[function(require,module,exports) {
 "use strict";
@@ -178,7 +179,7 @@ var Block = /*#__PURE__*/function () {
   _createClass(Block, [{
     key: "toHTML",
     value: function toHTML() {
-      throw new Error("Метод toHTML должен быть реализован.");
+      throw new Error("Method toHTML must be realised");
     }
   }]);
   return Block;
@@ -213,7 +214,8 @@ var TextBlock = /*#__PURE__*/function (_Block2) {
   _createClass(TextBlock, [{
     key: "toHTML",
     value: function toHTML() {
-      return (0, _utils.row)((0, _utils.col)("<p>".concat(this.value, "</p>")), (0, _utils.css)(this.options.styles));
+      var styles = this.options.styles;
+      return (0, _utils.row)((0, _utils.col)("<p>\n            ".concat(this.value, "\n        </p>")), (0, _utils.css)(styles));
     }
   }]);
   return TextBlock;
@@ -229,8 +231,9 @@ var ColumnsBlock = /*#__PURE__*/function (_Block3) {
   _createClass(ColumnsBlock, [{
     key: "toHTML",
     value: function toHTML() {
-      var html = this.value.map(_utils.col).join("");
-      return (0, _utils.row)(html, (0, _utils.css)(this.options.styles));
+      var styles = this.options.styles;
+      var HTML = this.value.map(_utils.col).join("");
+      return (0, _utils.row)(HTML, (0, _utils.css)(styles));
     }
   }]);
   return ColumnsBlock;
@@ -247,17 +250,94 @@ var ImageBlock = /*#__PURE__*/function (_Block4) {
     key: "toHTML",
     value: function toHTML() {
       var _this$options2 = this.options,
+        styles = _this$options2.styles,
         is = _this$options2.imageStyles,
         _this$options2$alt = _this$options2.alt,
-        alt = _this$options2$alt === void 0 ? "" : _this$options2$alt,
-        styles = _this$options2.styles;
-      return (0, _utils.row)("<img style=\"".concat((0, _utils.css)(is), "\" src=\"").concat(this.value, "\" alt=\"").concat(alt, "\"> "), (0, _utils.css)(styles));
+        alt = _this$options2$alt === void 0 ? "" : _this$options2$alt;
+      return (0, _utils.row)("<img src=\"".concat(this.value, "\" alt=\"").concat(alt, "\" style=\"").concat((0, _utils.css)(is), "\"/>"), (0, _utils.css)(styles));
     }
   }]);
   return ImageBlock;
 }(Block);
 exports.ImageBlock = ImageBlock;
-},{"../utils":"utils.js"}],"classes/sidebar.js":[function(require,module,exports) {
+},{"../utils":"utils.js"}],"model.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.model = void 0;
+var _image = _interopRequireDefault(require("./assets/image.png"));
+var _blocks = require("./classes/blocks");
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var model = [new _blocks.TitleBlock("Конструктор сайтов на чистом JS.", {
+  tag: "h2",
+  styles: {
+    "text-align": "center",
+    color: "#fff",
+    background: "linear-gradient(to right, #ff0099, #493240)",
+    padding: "1.5rem"
+  }
+}), new _blocks.TextBlock("Давайте двигаться вперед к веб-разработке вместе!", {
+  styles: {
+    "font-size": "1.5625rem",
+    "text-align": "center",
+    color: "#fff",
+    background: "linear-gradient(to left, #f2994a, #f2c94c)",
+    padding: "1.5rem"
+  }
+}), new _blocks.ColumnsBlock(["HTML", "CSS", "JS"], {
+  styles: {
+    "font-size": "1.125rem",
+    "text-align": "center",
+    color: "#fff",
+    background: "linear-gradient(to bottom, #8e2de2, #4a00e0)"
+  }
+}), new _blocks.ImageBlock(_image.default, {
+  styles: {
+    display: "flex",
+    "justify-content": "center",
+    padding: "2rem 0"
+  },
+  imageStyles: {
+    width: "500px",
+    height: "auto"
+  },
+  alt: "Picture"
+})];
+exports.model = model;
+},{"./assets/image.png":"assets/image.png","./classes/blocks":"classes/blocks.js"}],"classes/site.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Site = void 0;
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+var Site = /*#__PURE__*/function () {
+  function Site(selector) {
+    _classCallCheck(this, Site);
+    this.$el = document.querySelector(selector);
+  }
+  _createClass(Site, [{
+    key: "render",
+    value: function render(model) {
+      var _this = this;
+      this.$el.innerHTML = "";
+      model.forEach(function (block) {
+        _this.$el.insertAdjacentHTML("beforeend", block.toHTML());
+      });
+    }
+  }]);
+  return Site;
+}();
+exports.Site = Site;
+},{}],"classes/sidebar.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -294,12 +374,12 @@ var Sidebar = /*#__PURE__*/function () {
     key: "add",
     value: function add(event) {
       event.preventDefault();
-      var type = event.target.name;
+      var type = event.target;
       var value = event.target.value.value;
       var styles = event.target.styles.value;
-      var newBlock = type === "text" ? newBlock = new _blocks.TextBlock(value, {
+      var newBlock = type === "text" ? new _blocks.TextBlock(value, {
         styles: styles
-      }) : newBlock = new _blocks.TitleBlock(value, {
+      }) : new _blocks.TitleBlock(value, {
         styles: styles
       });
       this.update(newBlock);
@@ -310,46 +390,15 @@ var Sidebar = /*#__PURE__*/function () {
   return Sidebar;
 }();
 exports.Sidebar = Sidebar;
-},{"../utils":"utils.js","./blocks":"classes/blocks.js"}],"classes/site.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Site = void 0;
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-var Site = /*#__PURE__*/function () {
-  function Site(selector) {
-    _classCallCheck(this, Site);
-    this.$el = document.querySelector(selector);
-  }
-  _createClass(Site, [{
-    key: "render",
-    value: function render(model) {
-      var _this = this;
-      this.$el.innerHTML = "";
-      model.forEach(function (block) {
-        return _this.$el.insertAdjacentHTML("beforeend", block.toHTML());
-      });
-    }
-  }]);
-  return Site;
-}();
-exports.Site = Site;
-},{}],"classes/app.js":[function(require,module,exports) {
+},{"../utils":"utils.js","./blocks":"classes/blocks.js"}],"classes/app.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.App = void 0;
-var _sidebar = require("./sidebar");
 var _site = require("./site");
+var _sidebar = require("./sidebar");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
@@ -368,7 +417,7 @@ var App = /*#__PURE__*/function () {
       var site = new _site.Site("#site");
       site.render(this.model);
       var updateCallBack = function updateCallBack(newBlock) {
-        model.push(newBlock);
+        _this.model.push(newBlock);
         site.render(_this.model);
       };
       new _sidebar.Sidebar("#panel", updateCallBack);
@@ -377,56 +426,7 @@ var App = /*#__PURE__*/function () {
   return App;
 }();
 exports.App = App;
-},{"./sidebar":"classes/sidebar.js","./site":"classes/site.js"}],"assets/image.png":[function(require,module,exports) {
-module.exports = "/image.90ac9039.png";
-},{}],"model.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.model = void 0;
-var _image = _interopRequireDefault(require("./assets/image.png"));
-var _blocks = require("./classes/blocks");
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var model = [new _blocks.TitleBlock("Конструктор сайтов на чистом JavaScript.", {
-  tag: "h2",
-  styles: {
-    "text-align": "center",
-    color: "#fff",
-    padding: "1.5rem",
-    background: "linear-gradient(to right, #ff0099, #493240)"
-  }
-}), new _blocks.TextBlock("Вперед в веб-разработку вместе!", {
-  styles: {
-    "font-size": "1.25rem",
-    "text-align": "center",
-    color: "#FFFFFFCC",
-    background: "linear-gradient(to left, #f2994a, #f2c94c)",
-    padding: "0.625rem 0"
-  }
-}), new _blocks.ColumnsBlock(["HTML", "CSS", "JS"], {
-  styles: {
-    "font-size": "1.125rem",
-    "font-weight": "600",
-    "text-align": "center",
-    color: "#fff",
-    background: "linear-gradient(to bottom, #8e2de2, #4a00e0)"
-  }
-}), new _blocks.ImageBlock(_image.default, {
-  styles: {
-    display: "flex",
-    "justify-content": "center",
-    padding: "0.9375rem 0"
-  },
-  imageStyles: {
-    width: "31.25rem",
-    height: "auto"
-  },
-  alt: "Это картина"
-})];
-exports.model = model;
-},{"./assets/image.png":"assets/image.png","./classes/blocks":"classes/blocks.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"./site":"classes/site.js","./sidebar":"classes/sidebar.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 function getBundleURLCached() {
   if (!bundleURL) {
@@ -484,11 +484,11 @@ module.hot.accept(reloadCSS);
 },{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
+var _model = require("./model.js");
 var _app = require("./classes/app");
-var _model = require("./model");
 require("./styles/main.css");
 new _app.App(_model.model).init();
-},{"./classes/app":"classes/app.js","./model":"model.js","./styles/main.css":"styles/main.css"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./model.js":"model.js","./classes/app":"classes/app.js","./styles/main.css":"styles/main.css"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -513,7 +513,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50424" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64021" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
